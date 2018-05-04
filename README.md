@@ -1,6 +1,6 @@
-**NOT TESTED. Old tested version: [MPU925x_I2C][oldLib]**
-
 *MPU925x - I2C and SPI library.*
+
+**NOT TESTED. Old tested version: [MPU925x_I2C][oldLib]**
 
 [![release](https://img.shields.io/badge/release-0.1.0-yellow.svg)](https://github.com/VaSe7u/MPU925x/releases)
 [![documentation](https://img.shields.io/badge/docs-doxygen-green.svg)](https://VaSe7u.github.io/MPU925x/doc/Doxygen/html/index.html)
