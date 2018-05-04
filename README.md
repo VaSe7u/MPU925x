@@ -1,4 +1,4 @@
-**UNDER DEVELOPMENT**
+**NOT TESTED. Old tested version: [MPU925x_I2C][oldLib]**
 
 *MPU925x - I2C and SPI library.*
 
@@ -62,3 +62,4 @@ SOFTWARE.
 [doxygen classes]: https://VaSe7u.github.io/MPU925x/doc/Doxygen/html/annotated.html
 [examples]: https://github.com/VaSe7u/MPU925x/tree/master/examples
 [latest release]: https://github.com/VaSe7u/MPU925x/releases/latest
+[oldLib]: https://github.com/VaSe7u/MPU925x_I2C
