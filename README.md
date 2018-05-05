@@ -8,7 +8,7 @@
 
 
 **MPU925x** is a MEMS accelerometer, gyroscope and magnetometer.
-This library configures and reads the **MPU925x** through callback functions. This makes it's platform independent.
+This interfaces with **MPU925x** through callback functions, making the library platform independent.
 
 
 Resources
