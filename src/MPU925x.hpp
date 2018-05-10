@@ -104,8 +104,8 @@ public:
   enum class AD0 : bool {
     LOW = 0x68, HIGH = 0x69,
   };
-  MPU925x(const uint8_t device = 0x68);
-  MPU925x(const AD0 ad0);
+  explicit MPU925x(const uint8_t device = 0x68);
+  explicit MPU925x(const AD0 ad0);
   void attachInterface(bool (*read)(uint8_t device, uint8_t registerAddress, uint8_t *data, int8_t size),
                        bool (*write)(uint8_t device, uint8_t registerAddress, uint8_t *data, int8_t size));
 
