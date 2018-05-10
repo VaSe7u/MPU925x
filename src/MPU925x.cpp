@@ -155,7 +155,6 @@ bool MPU925x::accelDlpf(const Bandwidth bandwidth) {
   }
   uint8_t bits = (fchoiceMask | reg) & 0x0f;
 
-  uint8_t reg = 0;
   return _writeBits(Register::ACCEL_CONFIG_2, bits, Bit::ACCEL_FCHOICE_B,
                     (Length)((uint8_t)Length::A_DLPF_CFG + 1));
   // if (_read(_device, (uint8_t)Register::ACCEL_CONFIG_2, &reg, 1)) {
@@ -350,9 +349,9 @@ Range MPU925x::getGyroRange() const {
 
 bool MPU925x::offsetAccel(const int16_t x, const int16_t y, const int16_t z) {
   // check if under 15 bits
-  if ((uint16_t)x & ~0x8000 > 0x3fff
-      || (uint16_t)y & ~0x8000 > 0x3fff
-      || (uint16_t)z & ~0x8000 > 0x3fff) {
+  if (((uint16_t)x & ~0x8000) > 0x3fff
+      || ((uint16_t)y & ~0x8000) > 0x3fff
+      || ((uint16_t)z & ~0x8000) > 0x3fff) {
     return false;
   }
   return (offsetAccelX(x) && offsetAccelY(y) && offsetAccelZ(z));
@@ -579,7 +578,7 @@ bool MPU925x::readFifo(uint8_t fifo[], const int8_t size) {
 
 
 bool MPU925x::lowPowerAccelOutputDataRate(const OutputDataRate outputDataRate) {
-  if ((uint8_t)outputDataRate < 0 || (int8_t)outputDataRate > 11) return false;
+  if ((int8_t)outputDataRate < 0 || (int8_t)outputDataRate > 11) return false;
   return _writeBits(Register::LP_ACCEL_ODR, (uint8_t)outputDataRate,
                     Bit::LPOSC_CLKSEL, Length::LPOSC_CLKSEL);
 }
@@ -1286,7 +1285,7 @@ bool MPU925x::read(const int8_t startingAddress, int16_t data[],
 
 
 bool MPU925x::_offsetToRegister(const int16_t offset, uint8_t &registerBytes[2]) const {
-  if ((uint16_t)offset & ~0x8000 > 0x3fff) return false; // if bigger than 15-bit unsigned
+  if (((uint16_t)offset & ~0x8000) > 0x3fff) return false; // if bigger than 15-bit unsigned
   uint16_t signMask = (uint16_t)offset & 0x8000; // leave only the sign bit
   uint16_t offset_u16 = offset << 1; // left shift by 1, the sign falls
   offset_u16 &= ~0x8000; // zero the sign bit
@@ -1318,7 +1317,7 @@ bool MPU925x::_readBit(const Register registerAddress, bool *const bit,
                        const Bit position) const {
   uint8_t reg = 0;
   if (_readBytes(registerAddress, &reg)) {
-    *bit = reg & (1 << (uint8_t)bit);
+    *bit = reg & (1 << (uint8_t)position);
     return true;
   } else {
     return false;
@@ -1331,7 +1330,7 @@ bool MPU925x::_writeBit(const Register registerAddress, const bool bit,
     if (bit == true) {
       reg |= (1 << (uint8_t)position);
     } else {
-      reg &= (1 << (uint8_t)position);
+      reg &= ~(1 << (uint8_t)position);
     }
     return _writeBytes(registerAddress, &reg);
   }
